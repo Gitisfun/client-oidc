@@ -17,9 +17,9 @@ export class Oidc {
     this.ENDPOINT_TOKEN = `${endpoints?.baseUrl}${endpoints?.accessToken}`
   }
 
-  async login(postLoginRedirectUrl: string = '/', language?: string) {
+  async login(locale?: string, postLoginRedirectUrl: string = '/') {
     const url = new UrlBuilder(this.ENDPOINT_LOGIN)
-    if (language) url.append('language', language)
+    if (locale) url.append('locale', locale)
     if (postLoginRedirectUrl) url.append('postLoginUrl', postLoginRedirectUrl)
     window.location.replace(url.toString())
   }
