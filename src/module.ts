@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import {
   defineNuxtModule,
   addPlugin,
