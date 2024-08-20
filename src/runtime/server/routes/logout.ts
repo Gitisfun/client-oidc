@@ -1,4 +1,4 @@
-import { defineEventHandler, sendRedirect } from 'h3'
+import { defineEventHandler, sendRedirect, getQuery } from 'h3'
 import { isAuthenticated } from './../../utils/index'
 import { getCurrentSession } from './../../utils/session'
 import { initClient } from './../../utils/client'
