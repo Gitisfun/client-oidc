@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path/posix'
 import {
   defineNuxtModule,
   addPlugin,
