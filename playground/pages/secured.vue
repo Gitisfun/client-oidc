@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['oots-fas-auth-middleware'],
+  middleware: ['client-oidc-auth-middleware'],
   // or middleware: 'auth'
 })
 const { $oidc } = useNuxtApp()

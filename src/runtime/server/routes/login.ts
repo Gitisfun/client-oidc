@@ -8,7 +8,7 @@ import { useRuntimeConfig } from '#imports'
 export default defineEventHandler(async (event) => {
   try {
     const queryParams = getQuery(event)
-    const { config } = useRuntimeConfig().public.ootsFas
+    const { config } = useRuntimeConfig().public.clientOidc
     const session = await getCurrentSession(event)
     const postLoginUrl
       = queryParams?.postLoginUrl ?? getRequestURL(event).origin

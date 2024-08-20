@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const isLoggedIn = isAuthenticated(session.data?.tokenSet)
 
     if (isLoggedIn) {
-      const { config } = useRuntimeConfig().public.ootsFas
+      const { config } = useRuntimeConfig().public.clientOidc
       const client = await initClient([config.redirectUrl])
 
       const idToken = session.data?.tokenSet?.id_token

@@ -1,11 +1,7 @@
 {
-  "name": "@be.bosa.oots/fas-oidc",
-  "version": "1.0.6",
+  "name": "client-oidc",
+  "version": "1.0.1",
   "description": "An implementation for OIDC",
-  "repository": {
-    "type": "git",
-    "url": "git@bitbucket.org:bosadtpga/oots-requester-poc-fas-lib.git"
-  },
   "license": "MIT",
   "type": "module",
   "exports": {

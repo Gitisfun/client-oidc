@@ -1,12 +1,12 @@
 import { NuxtModule, RuntimeConfig } from '@nuxt/schema'
 declare module '@nuxt/schema' {
   interface NuxtConfig {
-    ["ootsFas"]?: typeof import("/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["devtools"]?: typeof import("@nuxt/devtools").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["telemetry"]?: typeof import("@nuxt/telemetry").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,  modules?: (undefined | null | false | NuxtModule | string | [NuxtModule | string, Record<string, any>] | ["/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module", Exclude<NuxtConfig["ootsFas"], boolean>] | ["@nuxt/devtools", Exclude<NuxtConfig["devtools"], boolean>] | ["@nuxt/telemetry", Exclude<NuxtConfig["telemetry"], boolean>])[],
+    ["clientOidc"]?: typeof import("/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["devtools"]?: typeof import("@nuxt/devtools").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["telemetry"]?: typeof import("@nuxt/telemetry").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,  modules?: (undefined | null | false | NuxtModule | string | [NuxtModule | string, Record<string, any>] | ["/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module", Exclude<NuxtConfig["clientOidc"], boolean>] | ["@nuxt/devtools", Exclude<NuxtConfig["devtools"], boolean>] | ["@nuxt/telemetry", Exclude<NuxtConfig["telemetry"], boolean>])[],
   }
 }
 declare module 'nuxt/schema' {
   interface NuxtConfig {
-    ["ootsFas"]?: typeof import("/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["devtools"]?: typeof import("@nuxt/devtools").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["telemetry"]?: typeof import("@nuxt/telemetry").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,  modules?: (undefined | null | false | NuxtModule | string | [NuxtModule | string, Record<string, any>] | ["/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module", Exclude<NuxtConfig["ootsFas"], boolean>] | ["@nuxt/devtools", Exclude<NuxtConfig["devtools"], boolean>] | ["@nuxt/telemetry", Exclude<NuxtConfig["telemetry"], boolean>])[],
+    ["clientOidc"]?: typeof import("/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["devtools"]?: typeof import("@nuxt/devtools").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,    ["telemetry"]?: typeof import("@nuxt/telemetry").default extends NuxtModule<infer O> ? Partial<O> : Record<string, any>,  modules?: (undefined | null | false | NuxtModule | string | [NuxtModule | string, Record<string, any>] | ["/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/module", Exclude<NuxtConfig["clientOidc"], boolean>] | ["@nuxt/devtools", Exclude<NuxtConfig["devtools"], boolean>] | ["@nuxt/telemetry", Exclude<NuxtConfig["telemetry"], boolean>])[],
   }
   interface RuntimeConfig {
    app: {
@@ -24,7 +24,7 @@ declare module 'nuxt/schema' {
    },
   }
   interface PublicRuntimeConfig {
-   ootsFas: {
+   clientOidc: {
       isEnabled: boolean,
 
       config: {

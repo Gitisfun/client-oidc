@@ -19,8 +19,8 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'oots-fas',
-    configKey: 'ootsFas',
+    name: 'client-oidc',
+    configKey: 'clientOidc',
     version: '1.0.0',
   },
   // Default configuration options of the Nuxt module
@@ -55,7 +55,7 @@ export default defineNuxtModule<ModuleOptions>({
       endSessionUri: '/connect/endSession',
     },
     sessionConfig: {
-      name: 'ootsfassession',
+      name: 'clientoidcsession',
       password: '80d42cfb-1cd2-462c-8f17-e3237d9027e9',
       httpOnly: true,
       secure: true,
@@ -67,8 +67,8 @@ export default defineNuxtModule<ModuleOptions>({
     const resolver = createResolver(import.meta.url)
 
     if (_options?.isEnabled) {
-      _nuxt.options.runtimeConfig.public.ootsFas = defu(
-        _nuxt.options.runtimeConfig.public.ootsFas,
+      _nuxt.options.runtimeConfig.public.clientOidc = defu(
+        _nuxt.options.runtimeConfig.public.clientOidc,
         {
           isEnabled: _options.isEnabled,
           config: _options.config,
@@ -107,7 +107,7 @@ export default defineNuxtModule<ModuleOptions>({
       })
 
       addRouteMiddleware({
-        name: 'oots-fas-auth-middleware',
+        name: 'client-oidc-auth-middleware',
         path: resolver.resolve('./runtime/middleware/auth'),
         global: false,
       })

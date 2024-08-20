@@ -3,5 +3,5 @@ export const globalMiddleware = [
   manifest_45route_45rule
 ]
 export const namedMiddleware = {
-  "oots-fas-auth-middleware": () => import("/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/runtime/middleware/auth.ts")
+  "client-oidc-auth-middleware": () => import("/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/src/runtime/middleware/auth.ts")
 }

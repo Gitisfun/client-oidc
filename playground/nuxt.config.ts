@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   myModule: {},
   devtools: { enabled: true },
   compatibilityDate: '2024-07-18',
-  ootsFas: {
+  clientOidc: {
     // Add config here
   },
 })

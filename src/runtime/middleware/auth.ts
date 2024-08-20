@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async () => {
   const token = await oidc.getTokenSet()
 
   if (!token.value) {
-    const { endpoints } = useRuntimeConfig().public.ootsFas
+    const { endpoints } = useRuntimeConfig().public.clientOidc
     return navigateTo(`${endpoints?.baseUrl}${endpoints?.login}`)
   }
 })

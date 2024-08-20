@@ -10,7 +10,7 @@ export class Oidc {
   ENDPOINT_USERINFO: string
   ENDPOINT_TOKEN: string
   constructor() {
-    const { endpoints } = useRuntimeConfig().public.ootsFas
+    const { endpoints } = useRuntimeConfig().public.clientOidc
     this.ENDPOINT_LOGIN = `${endpoints?.baseUrl}${endpoints?.login}`
     this.ENDPOINT_LOGOUT = `${endpoints?.baseUrl}${endpoints?.logout}`
     this.ENDPOINT_USERINFO = `${endpoints?.baseUrl}${endpoints?.userinfo}`

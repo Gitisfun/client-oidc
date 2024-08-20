@@ -6,7 +6,7 @@ import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   try {
-    const { config } = useRuntimeConfig().public.ootsFas
+    const { config } = useRuntimeConfig().public.clientOidc
 
     const req = event.node.req
     const session = await getCurrentSession(event)
