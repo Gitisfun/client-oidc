@@ -6,8 +6,6 @@ import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   try {
-    console.log('Logout route')
-
     const queryParams = getQuery(event)
 
     const session = await getCurrentSession(event)
@@ -33,9 +31,6 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error) {
-    console.log('error in logout')
-    console.log(error)
-
     return sendRedirect(event, '/error')
   }
 })

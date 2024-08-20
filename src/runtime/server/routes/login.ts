@@ -7,7 +7,6 @@ import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   try {
-    console.log('Login route')
     const queryParams = getQuery(event)
     const { config } = useRuntimeConfig().public.clientOidc
     const session = await getCurrentSession(event)
