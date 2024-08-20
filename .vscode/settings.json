@@ -1,0 +1,10 @@
+{
+    "prettier.singleQuote": true,
+    "prettier.configPath": ".prettierrc",
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
+    "scss.lint.unknownAtRules": "ignore",
+    "eslint.format.enable": true,
+    "prettier.useEditorConfig": false
+  }
+  

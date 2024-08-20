@@ -1,0 +1,2 @@
+import { CapoPlugin } from "/Users/christianvandenputtelaar/Desktop/tijdelijk/client-oidc/node_modules/.pnpm/@unhead+vue@1.9.16_vue@3.4.32_typescript@5.5.3_/node_modules/@unhead/vue/dist/index.mjs";
+export default import.meta.server ? [CapoPlugin({ track: true })] : [];
