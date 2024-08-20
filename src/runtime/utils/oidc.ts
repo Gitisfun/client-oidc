@@ -45,7 +45,7 @@ export class Oidc {
     console.log('Implement')
   }
 
-  async isAuthenticated() {
+  async isLoggedIn() {
     const { data } = await useFetch<Partial<TokenSetParameters>>(this.ENDPOINT_TOKEN)
     return isAuthenticated(data.value!)
   }
