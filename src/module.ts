@@ -66,52 +66,55 @@ export default defineNuxtModule<ModuleOptions>({
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
 
-    if (_options?.isEnabled) {
-      _nuxt.options.runtimeConfig.public.clientOidc = defu(
-        _nuxt.options.runtimeConfig.public.clientOidc,
-        {
-          isEnabled: _options.isEnabled,
-          config: _options.config,
-          endpoints: _options.endpoints,
-          sessionConfig: _options.sessionConfig,
-        },
-      )
+    _nuxt.options.runtimeConfig.public.clientOidc = defu(
+      _nuxt.options.runtimeConfig.public.clientOidc,
+      {
+        isEnabled: _options.isEnabled,
+        config: _options.config,
+        endpoints: _options.endpoints,
+        sessionConfig: _options.sessionConfig,
+      },
+    )
 
-      addServerHandler({
-        route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.login}`,
-        handler: resolver.resolve('./runtime/server/routes/login'),
-      })
-      addServerHandler({
-        route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.loginCallback}`,
-        handler: resolver.resolve('./runtime/server/routes/loginCallback'),
-      })
-      addServerHandler({
-        route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.logout}`,
-        handler: resolver.resolve('./runtime/server/routes/logout'),
-      })
-      addServerHandler({
-        route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.logoutCallback}`,
-        handler: resolver.resolve('./runtime/server/routes/logoutCallback'),
-      })
-      addServerHandler({
-        route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.accessToken}`,
-        handler: resolver.resolve('./runtime/server/routes/tokenset'),
-      })
-      addServerHandler({
-        route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.userinfo}`,
-        handler: resolver.resolve('./runtime/server/routes/user'),
-      })
-      addServerHandler({
-        route: `/error`,
-        handler: resolver.resolve('./runtime/server/routes/error'),
-      })
+    addServerHandler({
+      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.login}`,
+      handler: resolver.resolve('./runtime/server/routes/login'),
+    })
+    addServerHandler({
+      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.loginCallback}`,
+      handler: resolver.resolve('./runtime/server/routes/loginCallback'),
+    })
+    addServerHandler({
+      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.logout}`,
+      handler: resolver.resolve('./runtime/server/routes/logout'),
+    })
+    addServerHandler({
+      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.logoutCallback}`,
+      handler: resolver.resolve('./runtime/server/routes/logoutCallback'),
+    })
+    addServerHandler({
+      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.accessToken}`,
+      handler: resolver.resolve('./runtime/server/routes/tokenset'),
+    })
+    addServerHandler({
+      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.userinfo}`,
+      handler: resolver.resolve('./runtime/server/routes/user'),
+    })
+    addServerHandler({
+      route: `/error`,
+      handler: resolver.resolve('./runtime/server/routes/error'),
+    })
 
-      addRouteMiddleware({
-        name: 'client-oidc-auth-middleware',
-        path: resolver.resolve('./runtime/middleware/auth'),
-        global: false,
-      })
-      addPlugin(resolver.resolve('./runtime/plugin'))
-    }
+    addRouteMiddleware({
+      name: 'client-oidc-auth-middleware',
+      path: resolver.resolve('./runtime/middleware/auth'),
+      global: false,
+    })
+
+    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    _nuxt.options.build.transpile.push(runtimeDir)
+
+    addPlugin(resolve(runtimeDir, 'plugin'))
+    // addPlugin(resolver.resolve('./runtime/plugin'))
   },
 })
