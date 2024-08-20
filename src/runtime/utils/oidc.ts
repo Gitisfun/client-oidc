@@ -18,6 +18,7 @@ export class Oidc {
   }
 
   async login(postLoginRedirectUrl: string = '/', language?: string) {
+    console.log('Login function')
     const url = new UrlBuilder(this.ENDPOINT_LOGIN)
     if (language) url.append('language', language)
     if (postLoginRedirectUrl) url.append('postLoginUrl', postLoginRedirectUrl)
@@ -25,6 +26,7 @@ export class Oidc {
   }
 
   async logout(postLogoutUrl: string = '/') {
+    console.log('Logout function')
     const url = new UrlBuilder(this.ENDPOINT_LOGOUT)
     if (postLogoutUrl) url.append('postLogoutUrl', postLogoutUrl)
     window.location.replace(url.toString())
