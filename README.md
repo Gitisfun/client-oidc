@@ -7,7 +7,7 @@ Find and replace all on all files (CMD+SHIFT+F):
 - Description: My new Nuxt module
 -->
 
-# client-oidc for Nuxt 3
+# Client-oidc for Nuxt 3
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -31,7 +31,15 @@ npx nuxi module add client-oidc
 or
 
 ```bash
-npx nuxi module add client-oidc
+npm install client-oidc
+```
+
+```javascript
+export default defineNuxtConfig({
+  ...
+  modules: ["client-oidc"],
+  ...
+});
 ```
 
 And manually add client-oidc in nuxt.config.ts
@@ -46,8 +54,34 @@ export default defineNuxtConfig({
 });
 ```
 
-That's it! You can now use client-oidc in your Nuxt app ✨
+## Config options
 
+There are different options possible in the config. Some are mandatory and others are optional. Here follows a list of all options:
+
+```javascript
+export default defineNuxtConfig({
+  ...
+  clientOidc: {
+    isEnabled: '', // Type: Boolean - Enable or disable the module easily
+    config: {
+      issuer: '', // Type: String - The OIDC provider which authenticates users and issues ID tokens, access tokens, ...
+      clientId: '', // Type: String - A unique identifier assigned to a client application, used to identify and authenticate the client when interacting with the OIDC provider.
+      clientSecret: '',
+      redirectUrl: '',
+      acrValues: '',
+      scope: '',
+      allowedRoles: '',
+      postLogoutRedirectUris: '',
+    },
+    endpoints: {
+      baseUrl: '',
+      loginCallback: '',
+      logoutCallback: '',
+    },
+  },
+  ...
+});
+```
 
 ## Contribution
 
