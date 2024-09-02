@@ -64,19 +64,40 @@ export default defineNuxtConfig({
   clientOidc: {
     isEnabled: '', // Type: Boolean - Enable or disable the module easily
     config: {
-      issuer: '', // Type: String - The OIDC provider which authenticates users and issues ID tokens, access tokens, ...
-      clientId: '', // Type: String - A unique identifier assigned to a client application, used to identify and authenticate the client when interacting with the OIDC provider.
-      clientSecret: '',
-      redirectUrl: '',
-      acrValues: '',
-      scope: '',
-      allowedRoles: '',
-      postLogoutRedirectUris: '',
+      issuer: '', // * Type: String - The OIDC provider which authenticates users and issues ID tokens, access tokens, ...
+      clientId: '', // * Type: String - A unique identifier assigned to a client application, used to identify and authenticate the client when interacting with the OIDC provider.
+      clientSecret: '', // * Type: String
+      redirectUrl: '', // * Type: String
+      acrValues: '', // * Type: String
+      scope: '', // * Type: String
+      allowedRoles: '', // * Type: String
+      postLogoutRedirectUris: '', // * Type: String
+      response_type: 'code',
+      id_token_signed_response_alg: 'RS256',
+      userinfo_signed_response_alg: 'RS256',
+      authorizationUri: '/authorize',
+      tokenUri: '/access_token',
+      jwkUri: '/connect/jwk_uri',
+      userInfoUri: '/userinfo',
+      introspectionUri: '/introspect',
+      endSessionUri: '/connect/endSession',
     },
     endpoints: {
-      baseUrl: '',
-      loginCallback: '',
-      logoutCallback: '',
+      baseUrl: '', // Type: String
+      login: '', // Type: String
+      loginCallback: '', // Type: String
+      accessToken: '', // Type: String
+      userinfo: '', // Type: String
+      logout: '', // Type: String
+      logoutCallback: '', // * Type: String
+    },
+    sessionConfig: {
+      name: '',
+      password: '',
+      httpOnly: '',
+      secure: '',
+      sameSite: '',
+      maxAge: '',
     },
   },
   ...
