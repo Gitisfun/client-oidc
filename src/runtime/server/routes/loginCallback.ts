@@ -29,17 +29,29 @@ export default defineEventHandler(async (event) => {
       surname: userinfo?.surname,
       fedid: userinfo?.fedid,
       nrn: userinfo?.sub,
-      companyId: userinfo?.companyId,
-      roles: userinfo?.roles,
+      // companyId: userinfo?.companyId,
+      // roles: userinfo?.roles,
       mail: userinfo?.mail,
       prefLanguage: userinfo?.prefLanguage,
     }
 
+    const token = {
+      access_token: tokenSet?.access_token,
+      // scope: tokenSet?.scope,
+      id_token: tokenSet?.id_token,
+      // token_type: tokenSet?.token_type,
+      expires_at: tokenSet?.expires_at,
+      // nonce: tokenSet?.nonce,
+    }
+
     await session.update({
-      tokenSet: tokenSet,
-      user: user,
+      user,
+      tokenSet: token,
     })
 
+    // TODO: Check if user has tokenSetowed role 3-> hasAllowedRole
+
+    // TODO: Check if user has tokenSetowed role 4-> hasAllowedRole
     // TODO: Check if user has allowed role --> hasAllowedRole
     // directly assign cbe and role if only one and authorized
 
