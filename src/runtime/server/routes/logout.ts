@@ -31,6 +31,9 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error) {
-    return sendRedirect(event, '/error')
+    console.log('Error in callback')
+    console.log(error)
+    const { endpoints } = useRuntimeConfig().public.clientOidc
+    return sendRedirect(event, `${endpoints.baseUrl}/error`)
   }
 })

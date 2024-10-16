@@ -27,12 +27,12 @@ export default defineEventHandler(async (event) => {
     const user: OIDCUser = {
       givenName: userinfo?.givenName,
       surname: userinfo?.surname,
-      fedid: userinfo?.fedid,
+      // fedid: userinfo?.fedid,
       nrn: userinfo?.sub,
       // companyId: userinfo?.companyId,
       // roles: userinfo?.roles,
-      mail: userinfo?.mail,
-      prefLanguage: userinfo?.prefLanguage,
+      // mail: userinfo?.mail,
+      // prefLanguage: userinfo?.prefLanguage,
     }
 
     const token = {
@@ -58,6 +58,9 @@ export default defineEventHandler(async (event) => {
     return sendRedirect(event, postLoginUrl)
   }
   catch (error) {
-    sendRedirect(event, '/error')
+    console.log('Error in callback')
+    console.log(error)
+    const { endpoints } = useRuntimeConfig().public.clientOidc
+    return sendRedirect(event, `${endpoints.baseUrl}/error`)
   }
 })

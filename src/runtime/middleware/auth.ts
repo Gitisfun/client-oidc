@@ -1,5 +1,9 @@
 import { Oidc } from './../utils/oidc'
-import { defineNuxtRouteMiddleware, useRuntimeConfig } from '#imports'
+import {
+  defineNuxtRouteMiddleware,
+  useRuntimeConfig,
+  navigateTo,
+} from '#imports'
 
 export default defineNuxtRouteMiddleware(async () => {
   const oidc = new Oidc()
