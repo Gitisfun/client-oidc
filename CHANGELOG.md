@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.25
+
+[compare changes](https://github.com/Gitisfun/client-oidc/compare/v1.0.24...v1.0.25)
+
 ## v1.0.24
 
 [compare changes](https://github.com/Gitisfun/client-oidc/compare/v1.0.23...v1.0.24)
