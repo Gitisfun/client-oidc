@@ -22,11 +22,8 @@ declare module 'nuxt/schema' {
    nitro: {
       envPrefix: string,
    },
-  }
-  interface PublicRuntimeConfig {
-   clientOidc: {
-      isEnabled: boolean,
 
+   clientOidc: {
       config: {
          issuer: string,
 
@@ -63,6 +60,25 @@ declare module 'nuxt/schema' {
          endSessionUri: string,
       },
 
+      sessionConfig: {
+         name: string,
+
+         password: string,
+
+         httpOnly: boolean,
+
+         secure: boolean,
+
+         sameSite: boolean,
+
+         maxAge: number,
+      },
+   },
+  }
+  interface PublicRuntimeConfig {
+   clientOidc: {
+      isEnabled: boolean,
+
       endpoints: {
          baseUrl: string,
 
@@ -77,20 +93,6 @@ declare module 'nuxt/schema' {
          logout: string,
 
          logoutCallback: string,
-      },
-
-      sessionConfig: {
-         name: string,
-
-         password: string,
-
-         httpOnly: boolean,
-
-         secure: boolean,
-
-         sameSite: boolean,
-
-         maxAge: number,
       },
    },
   }
