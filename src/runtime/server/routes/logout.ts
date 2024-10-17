@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const isLoggedIn = isAuthenticated(session.data?.tokenSet)
 
     if (isLoggedIn) {
-      const { config } = useRuntimeConfig().public.clientOidc
+      const { config } = useRuntimeConfig().clientOidc
       const client = await initClient([config.redirectUrl])
 
       const idToken = session.data?.tokenSet?.id_token
@@ -31,9 +31,6 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error) {
-    console.log('Error in callback')
-    console.log(error)
-    const { endpoints } = useRuntimeConfig().public.clientOidc
-    return sendRedirect(event, `${endpoints.baseUrl}/error`)
+    return sendRedirect(event, `/error`)
   }
 })

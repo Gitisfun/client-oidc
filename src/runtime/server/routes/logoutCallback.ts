@@ -13,9 +13,6 @@ export default defineEventHandler(async (event) => {
     return sendRedirect(event, postLogoutUrl)
   }
   catch (error) {
-    console.log('Error in callback')
-    console.log(error)
-    const { endpoints } = useRuntimeConfig().public.clientOidc
-    return sendRedirect(event, `${endpoints.baseUrl}/error`)
+    return sendRedirect(event, `/error`)
   }
 })

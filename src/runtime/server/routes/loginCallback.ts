@@ -6,7 +6,7 @@ import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   try {
-    const { config } = useRuntimeConfig().public.clientOidc
+    const { config } = useRuntimeConfig().clientOidc
 
     const req = event.node.req
     const session = await getCurrentSession(event)
@@ -58,9 +58,6 @@ export default defineEventHandler(async (event) => {
     return sendRedirect(event, postLoginUrl)
   }
   catch (error) {
-    console.log('Error in callback')
-    console.log(error)
-    const { endpoints } = useRuntimeConfig().public.clientOidc
-    return sendRedirect(event, `${endpoints.baseUrl}/error`)
+    return sendRedirect(event, `/error`)
   }
 })

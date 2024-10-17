@@ -7,16 +7,11 @@ import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   try {
-    console.log('--------- Environment variables ----------')
-    const { config, endpoints } = useRuntimeConfig().public.clientOidc
-    console.log('config')
-    console.log(config)
-    console.log('endpoints')
-    console.log(endpoints)
-    console.log('-------------------')
+    const { config } = useRuntimeConfig().clientOidc
     const queryParams = getQuery(event)
     const session = await getCurrentSession(event)
-    const postLoginUrl = queryParams?.postLoginUrl ?? getRequestURL(event).origin
+    const postLoginUrl
+      = queryParams?.postLoginUrl ?? getRequestURL(event).origin
 
     if (session.data?.tokenSet) return sendRedirect(event, postLoginUrl)
     else {
@@ -49,12 +44,6 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error) {
-    console.log('FAS OIDC error - login')
-    console.log(error)
-    console.log('--------------')
-    const { endpoints } = useRuntimeConfig().public.clientOidc
-    console.log(endpoints)
-
-    return sendRedirect(event, `${endpoints.baseUrl}/error`)
+    return sendRedirect(event, `/error`)
   }
 })

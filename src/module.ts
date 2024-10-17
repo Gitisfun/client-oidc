@@ -68,42 +68,48 @@ export default defineNuxtModule<ModuleOptions>({
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
 
-    _nuxt.options.runtimeConfig.public.clientOidc = defu(
-      _nuxt.options.runtimeConfig.public.clientOidc,
+    _nuxt.options.runtimeConfig.clientOidc = defu(
+      _nuxt.options.runtimeConfig.clientOidc,
       {
-        isEnabled: _options.isEnabled,
         config: _options.config,
-        endpoints: _options.endpoints,
         sessionConfig: _options.sessionConfig,
       },
     )
 
+    _nuxt.options.runtimeConfig.public.clientOidc = defu(
+      _nuxt.options.runtimeConfig.public.clientOidc,
+      {
+        isEnabled: _options.isEnabled,
+        endpoints: _options.endpoints,
+      },
+    )
+
     addServerHandler({
-      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.login}`,
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.login}`,
       handler: resolver.resolve('./runtime/server/routes/login'),
     })
     addServerHandler({
-      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.loginCallback}`,
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.loginCallback}`,
       handler: resolver.resolve('./runtime/server/routes/loginCallback'),
     })
     addServerHandler({
-      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.logout}`,
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.logout}`,
       handler: resolver.resolve('./runtime/server/routes/logout'),
     })
     addServerHandler({
-      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.logoutCallback}`,
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.logoutCallback}`,
       handler: resolver.resolve('./runtime/server/routes/logoutCallback'),
     })
     addServerHandler({
-      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.accessToken}`,
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.accessToken}`,
       handler: resolver.resolve('./runtime/server/routes/tokenset'),
     })
     addServerHandler({
-      route: `${_options?.endpoints?.baseUrl}${_options?.endpoints?.userinfo}`,
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.userinfo}`,
       handler: resolver.resolve('./runtime/server/routes/user'),
     })
     addServerHandler({
-      route: `${_options?.endpoints?.baseUrl}/error`,
+      route: `${_options.endpoints?.baseUrl}/error`,
       handler: resolver.resolve('./runtime/server/routes/error'),
     })
 

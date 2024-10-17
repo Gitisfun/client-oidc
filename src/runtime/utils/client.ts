@@ -2,15 +2,7 @@ import { Issuer } from 'openid-client'
 import { useRuntimeConfig } from '#imports'
 
 export const initClient = async (redirectUris: string[]) => {
-  const { config } = useRuntimeConfig().public.clientOidc
-
-  console.log('---- config ----')
-  console.log(config)
-  console.log('config for initClient')
-  console.log(config?.issuer)
-  console.log('config for initClient')
-  console.log(config?.clientId)
-  console.log('----------------')
+  const { config } = useRuntimeConfig().clientOidc
 
   const issuer = new Issuer({
     issuer: config.issuer,

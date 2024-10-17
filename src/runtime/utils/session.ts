@@ -2,7 +2,7 @@ import { useSession } from 'h3'
 import { useRuntimeConfig } from '#imports'
 
 export const getCurrentSession = async (event) => {
-  const { sessionConfig } = useRuntimeConfig().public.clientOidc
+  const { sessionConfig } = useRuntimeConfig().clientOidc
 
   return await useSession(event, {
     name: sessionConfig.name,

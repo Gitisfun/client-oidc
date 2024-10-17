@@ -11,6 +11,7 @@ export class Oidc {
   ENDPOINT_TOKEN: string
   constructor() {
     const { endpoints } = useRuntimeConfig().public.clientOidc
+
     this.ENDPOINT_LOGIN = `${endpoints?.baseUrl}${endpoints?.login}`
     this.ENDPOINT_LOGOUT = `${endpoints?.baseUrl}${endpoints?.logout}`
     this.ENDPOINT_USERINFO = `${endpoints?.baseUrl}${endpoints?.userinfo}`
@@ -46,7 +47,9 @@ export class Oidc {
   }
 
   async isLoggedIn() {
-    const { data } = await useFetch<Partial<TokenSetParameters>>(this.ENDPOINT_TOKEN)
+    const { data } = await useFetch<Partial<TokenSetParameters>>(
+      this.ENDPOINT_TOKEN,
+    )
     return isAuthenticated(data.value!)
   }
 }
