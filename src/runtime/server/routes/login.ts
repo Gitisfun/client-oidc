@@ -1,7 +1,7 @@
 import { defineEventHandler, sendRedirect, getQuery, getRequestURL } from 'h3'
 import { generators } from 'openid-client'
 import type { AuthorizationParameters } from 'openid-client'
-import { getCurrentSession } from './../../utils/session'
+import { getLoginSession, getTokenSetSession } from './../../utils/session'
 import { initClient } from './../../utils/client'
 import { useRuntimeConfig } from '#imports'
 
@@ -9,11 +9,11 @@ export default defineEventHandler(async (event) => {
   try {
     const { config } = useRuntimeConfig().clientOidc
     const queryParams = getQuery(event)
-    const session = await getCurrentSession(event)
-    const postLoginUrl
-      = queryParams?.postLoginUrl ?? getRequestURL(event).origin
+    const postLoginUrl = queryParams?.postLoginUrl ?? getRequestURL(event).origin
 
-    if (session.data?.tokenSet) return sendRedirect(event, postLoginUrl)
+    const tokenSetSession = await getTokenSetSession(event)
+    if (tokenSetSession.data?.tokenSet?.access_token)
+      return sendRedirect(event, postLoginUrl)
     else {
       const client = await initClient([config.redirectUrl])
 
@@ -34,7 +34,9 @@ export default defineEventHandler(async (event) => {
       }
 
       const authorizationUrl = client.authorizationUrl(parameters)
-      await session.update({
+
+      const loginSession = await getLoginSession(event)
+      await loginSession.update({
         state,
         nonce,
         postLoginUrl,

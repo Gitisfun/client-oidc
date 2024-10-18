@@ -9,7 +9,7 @@ export default defineNuxtRouteMiddleware(async () => {
   const oidc = new Oidc()
   const token = await oidc.getTokenSet()
 
-  if (!token.value) {
+  if (!token.value?.id_token) {
     const { endpoints } = useRuntimeConfig().public.clientOidc
     return navigateTo(`${endpoints?.baseUrl}${endpoints?.login}`)
   }

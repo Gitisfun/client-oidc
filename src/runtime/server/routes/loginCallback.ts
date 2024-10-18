@@ -1,5 +1,10 @@
 import { defineEventHandler, sendRedirect } from 'h3'
-import { getCurrentSession } from './../../utils/session'
+import {
+  getLoginSession,
+  getTokenSetSession,
+  getIdTokenSession,
+  getUserInfoSession,
+} from './../../utils/session'
 import { initClient } from './../../utils/client'
 import type { OIDCUser } from './../../types'
 import { useRuntimeConfig } from '#imports'
@@ -9,11 +14,14 @@ export default defineEventHandler(async (event) => {
     const { config } = useRuntimeConfig().clientOidc
 
     const req = event.node.req
-    const session = await getCurrentSession(event)
+    const loginSession = await getLoginSession(event)
+    const tokenSetSession = await getTokenSetSession(event)
+    const userInfoSession = await getUserInfoSession(event)
+    const idTokenSession = await getIdTokenSession(event)
 
-    const nonce = session.data.nonce
-    const state = session.data.state
-    const postLoginUrl = session.data.postLoginUrl
+    const nonce = loginSession.data.nonce
+    const state = loginSession.data.state
+    const postLoginUrl = loginSession.data.postLoginUrl
 
     const client = await initClient([config.redirectUrl])
     const params = client.callbackParams(req)
@@ -27,26 +35,31 @@ export default defineEventHandler(async (event) => {
     const user: OIDCUser = {
       givenName: userinfo?.givenName,
       surname: userinfo?.surname,
-      // fedid: userinfo?.fedid,
+      fedid: userinfo?.fedid,
       nrn: userinfo?.sub,
-      // companyId: userinfo?.companyId,
-      // roles: userinfo?.roles,
-      // mail: userinfo?.mail,
-      // prefLanguage: userinfo?.prefLanguage,
+      companyId: userinfo?.companyId,
+      roles: userinfo?.roles,
+      mail: userinfo?.mail,
+      prefLanguage: userinfo?.prefLanguage,
     }
 
     const token = {
       access_token: tokenSet?.access_token,
-      // scope: tokenSet?.scope,
-      id_token: tokenSet?.id_token,
-      // token_type: tokenSet?.token_type,
+      scope: tokenSet?.scope,
+      // id_token: tokenSet?.id_token,
+      token_type: tokenSet?.token_type,
       expires_at: tokenSet?.expires_at,
-      // nonce: tokenSet?.nonce,
+      nonce: tokenSet?.nonce,
     }
 
-    await session.update({
-      user,
+    await tokenSetSession.update({
       tokenSet: token,
+    })
+    await userInfoSession.update({
+      user,
+    })
+    await idTokenSession.update({
+      id_token: tokenSet?.id_token,
     })
 
     // TODO: Check if user has tokenSetowed role 3-> hasAllowedRole

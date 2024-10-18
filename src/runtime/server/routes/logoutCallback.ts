@@ -1,14 +1,19 @@
 import { defineEventHandler, getRequestURL, sendRedirect } from 'h3'
-import { getCurrentSession } from './../../utils/session'
+import { getLoginSession, getTokenSetSession, getUserInfoSession, getIdTokenSession } from './../../utils/session'
 
 export default defineEventHandler(async (event) => {
   try {
-    const session = await getCurrentSession(event)
+    const loginSession = await getLoginSession(event)
+    const userInfoSession = await getUserInfoSession(event)
+    const tokenSetSession = await getTokenSetSession(event)
+    const idTokenSession = await getIdTokenSession(event)
 
-    const postLogoutUrl
-      = session.data?.postLogoutUrl ?? getRequestURL(event).origin
+    const postLogoutUrl = loginSession.data?.postLogoutUrl ?? getRequestURL(event).origin
 
-    await session.clear()
+    await loginSession.clear()
+    await userInfoSession.clear()
+    await tokenSetSession.clear()
+    await idTokenSession.clear()
 
     return sendRedirect(event, postLogoutUrl)
   }

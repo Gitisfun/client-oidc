@@ -1,9 +1,14 @@
 import { defineEventHandler } from 'h3'
-import { getCurrentSession } from './../../utils/session'
+import { getUserInfoSession } from './../../utils/session'
 
 export default defineEventHandler(async (event) => {
-  const session = await getCurrentSession(event)
+  try {
+    const session = await getUserInfoSession(event)
 
-  if (session.data?.user) return session.data?.user
-  return null
+    if (session.data) return session.data
+    return null
+  }
+  catch (error) {
+    return null
+  }
 })
