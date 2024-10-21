@@ -36,6 +36,7 @@ export default defineNuxtModule<ModuleOptions>({
       userinfo: '/userinfo',
       logout: '/logout',
       logoutCallback: '/logoutCallback',
+      authenticated: '/authenticated',
     },
     config: {
       issuer: '',
@@ -107,6 +108,10 @@ export default defineNuxtModule<ModuleOptions>({
     addServerHandler({
       route: `${_options.endpoints?.baseUrl}${_options.endpoints?.userinfo}`,
       handler: resolver.resolve('./runtime/server/routes/user'),
+    })
+    addServerHandler({
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.authenticated}`,
+      handler: resolver.resolve('./runtime/server/routes/authenticated'),
     })
     addServerHandler({
       route: `${_options.endpoints?.baseUrl}/error`,

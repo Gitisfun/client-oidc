@@ -1,4 +1,3 @@
-/* eslint-disable @stylistic/comma-dangle */
 import type { TokenSetParameters } from 'openid-client'
 
 export const isExpired = (tokenSet?: Partial<TokenSetParameters>) => {
@@ -9,7 +8,7 @@ export const isExpired = (tokenSet?: Partial<TokenSetParameters>) => {
 }
 
 export const isAuthenticated = (
-  tokenSet?: Partial<TokenSetParameters>
+  tokenSet?: Partial<TokenSetParameters>,
 ): boolean => {
   if (tokenSet?.access_token) {
     return !isExpired(tokenSet)

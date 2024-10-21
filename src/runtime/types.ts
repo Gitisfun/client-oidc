@@ -6,6 +6,7 @@ export type Endpoints = {
   accessToken?: string
   logout?: string
   logoutCallback?: string
+  authenticated?: string
 }
 
 export type OidcProvider = {

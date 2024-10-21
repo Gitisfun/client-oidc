@@ -93,6 +93,8 @@ declare module 'nuxt/schema' {
          logout: string,
 
          logoutCallback: string,
+
+         authenticated: string,
       },
    },
   }

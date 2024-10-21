@@ -24,6 +24,9 @@ declare module 'nitropack' {
     '/userinfo': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../src/runtime/server/routes/user').default>>>>
     }
+    '/authenticated': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../src/runtime/server/routes/authenticated').default>>>>
+    }
     '/error': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../src/runtime/server/routes/error').default>>>>
     }
