@@ -35,8 +35,10 @@ export default defineEventHandler(async (event) => {
 
       return sendRedirect(event, endSessionUrl)
     }
-  }
-  catch (error) {
+  } catch (error) {
+    console.log('FAS OID error')
+    console.log(error)
+    console.log('-------------')
     return sendRedirect(event, `/error`)
   }
 })

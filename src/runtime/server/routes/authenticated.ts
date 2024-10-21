@@ -8,6 +8,9 @@ export default defineEventHandler(async (event) => {
     return isAuthenticated(tokenSet.data.tokenSet)
   }
   catch (error) {
+    console.log('FAS OID error')
+    console.log(error)
+    console.log('-------------')
     return false
   }
 })

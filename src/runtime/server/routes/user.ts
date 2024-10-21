@@ -9,6 +9,9 @@ export default defineEventHandler(async (event) => {
     return null
   }
   catch (error) {
+    console.log('FAS OID error')
+    console.log(error)
+    console.log('-------------')
     return null
   }
 })
