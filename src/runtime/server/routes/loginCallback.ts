@@ -29,8 +29,12 @@ export default defineEventHandler(async (event) => {
       nonce,
       state,
     })
+    console.log('tokenSet')
+    console.log(tokenSet)
 
     const userinfo = await client.userinfo(tokenSet.access_token)
+    console.log('userinfo')
+    console.log(userinfo)
 
     const user: OIDCUser = {
       givenName: userinfo?.givenName,
