@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
       tokenSet: token,
     })
     await userInfoSession.update({
-      user,
+      ...user,
     })
     await idTokenSession.update({
       id_token: tokenSet?.id_token,
