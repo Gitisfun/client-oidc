@@ -20,7 +20,7 @@ export class Oidc {
     this.ENDPOINT_AUTHENTICATED = `${baseUrl}${authenticated}`
   }
 
-  async login(locale?: string, postLoginRedirectUrl: string = '/') {
+  async login(locale?: string, postLoginRedirectUrl: string) {
     const isUserLoggedIn = await this.isLoggedIn()
     if (!isUserLoggedIn) {
       const url = new UrlBuilder(this.ENDPOINT_LOGIN)
@@ -30,7 +30,7 @@ export class Oidc {
     }
   }
 
-  async logout(postLogoutUrl: string = '/') {
+  async logout(postLogoutUrl: string) {
     const isUserLoggedIn = await this.isLoggedIn()
     if (isUserLoggedIn) {
       const url = new UrlBuilder(this.ENDPOINT_LOGOUT)
