@@ -6,6 +6,7 @@ import {
   getUserInfoSession,
 } from './../../utils/session'
 import { initClient } from './../../utils/client'
+import Logger from './../../utils/logger'
 import type { OIDCUser } from './../../types'
 import { useRuntimeConfig } from '#imports'
 
@@ -29,12 +30,8 @@ export default defineEventHandler(async (event) => {
       nonce,
       state,
     })
-    console.log('tokenSet')
-    console.log(tokenSet)
 
     const userinfo = await client.userinfo(tokenSet.access_token)
-    console.log('userinfo')
-    console.log(userinfo)
 
     const user: OIDCUser = {
       givenName: userinfo?.givenName,
@@ -46,6 +43,26 @@ export default defineEventHandler(async (event) => {
       mail: userinfo?.mail,
       prefLanguage: userinfo?.prefLanguage,
     }
+
+    Logger.success(`User ${user?.givenName} ${user?.surname} has logged in successfully.`)
+
+    Logger.info(`User:`)
+    Logger.info(`o givenName --> ${user?.givenName}`)
+    Logger.info(`o surname --> ${user?.surname}`)
+    Logger.info(`o fedid --> ${user?.fedid}`)
+    Logger.info(`o nrn --> ${user?.nrn}`)
+    Logger.info(`o companyId --> ${user?.companyId}`)
+    Logger.info(`o mail --> ${user?.mail}`)
+    Logger.info(`o prefLanguage --> ${user?.prefLanguage}`)
+    Logger.info(`o roles --> ${user?.roles}`)
+
+    Logger.info(`Tokenset:`)
+    Logger.info(`o access_token --> ${tokenSet?.access_token}`)
+    Logger.info(`o scope --> ${tokenSet?.scope}`)
+    Logger.info(`o token_type --> ${tokenSet?.token_type}`)
+    Logger.info(`o expires_at --> ${tokenSet?.expires_at}`)
+    Logger.info(`o nonce --> ${tokenSet?.nonce}`)
+    Logger.info(`o id_token --> ${tokenSet?.id_token}`)
 
     const token = {
       access_token: tokenSet?.access_token,
@@ -75,9 +92,7 @@ export default defineEventHandler(async (event) => {
     return sendRedirect(event, postLoginUrl)
   }
   catch (error) {
-    console.log('FAS OID error')
-    console.log(error)
-    console.log('-------------')
+    Logger.error(error.stack)
     return sendRedirect(event, `/error`)
   }
 })

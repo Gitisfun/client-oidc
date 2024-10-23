@@ -3,6 +3,7 @@ import { generators } from 'openid-client'
 import type { AuthorizationParameters } from 'openid-client'
 import { getLoginSession, getTokenSetSession } from './../../utils/session'
 import { initClient } from './../../utils/client'
+import Logger from './../../utils/logger'
 import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
@@ -15,6 +16,8 @@ export default defineEventHandler(async (event) => {
       postLoginUrl += `${queryParams?.postLoginUrl}`
       postLoginUrl = postLoginUrl.replace(/\/\//g, '/')
     }
+
+    Logger.info(`Post login url: ${postLoginUrl}`)
 
     const tokenSetSession = await getTokenSetSession(event)
 
@@ -39,7 +42,11 @@ export default defineEventHandler(async (event) => {
         parameters.ui_locales = queryParams?.locale as string
       }
 
+      Logger.info(`Locale: ${queryParams?.locale}`)
+
       const authorizationUrl = client.authorizationUrl(parameters)
+
+      Logger.info(`AuthorizationUrl: ${authorizationUrl}`)
 
       const loginSession = await getLoginSession(event)
       await loginSession.update({
@@ -52,9 +59,7 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error) {
-    console.log('FAS OID error')
-    console.log(error)
-    console.log('-------------')
+    Logger.error(error.stack)
     return sendRedirect(event, `/error`)
   }
 })

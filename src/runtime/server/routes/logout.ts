@@ -6,6 +6,7 @@ import {
   getIdTokenSession,
 } from './../../utils/session'
 import { initClient } from './../../utils/client'
+import Logger from './../../utils/logger'
 import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
@@ -37,9 +38,7 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch (error) {
-    console.log('FAS OID error')
-    console.log(error)
-    console.log('-------------')
+    Logger.error(error.stack)
     return sendRedirect(event, `/error`)
   }
 })

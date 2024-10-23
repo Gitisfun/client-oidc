@@ -1,5 +1,11 @@
 import { defineEventHandler, sendRedirect } from 'h3'
-import { getLoginSession, getTokenSetSession, getUserInfoSession, getIdTokenSession } from './../../utils/session'
+import {
+  getLoginSession,
+  getTokenSetSession,
+  getUserInfoSession,
+  getIdTokenSession,
+} from './../../utils/session'
+import Logger from './../../utils/logger'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -15,17 +21,20 @@ export default defineEventHandler(async (event) => {
       postLogoutUrl = postLogoutUrl.replace(/\/\//g, '/')
     }
 
+    Logger.info(`Post logout url: ${postLogoutUrl}`)
+    Logger.success(`User ${userInfoSession.data?.givenName} ${userInfoSession.data?.surname} has been logged out.`)
+
     await loginSession.clear()
     await userInfoSession.clear()
     await tokenSetSession.clear()
     await idTokenSession.clear()
 
+    Logger.success('Sessions have been cleared.')
+
     return sendRedirect(event, postLogoutUrl)
   }
   catch (error) {
-    console.log('FAS OID error')
-    console.log(error)
-    console.log('-------------')
+    Logger.error(error.stack)
     return sendRedirect(event, `/error`)
   }
 })

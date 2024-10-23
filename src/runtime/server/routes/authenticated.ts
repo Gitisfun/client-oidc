@@ -1,6 +1,7 @@
 import { defineEventHandler } from 'h3'
 import { isAuthenticated } from './../../utils/index'
 import { getTokenSetSession } from './../../utils/session'
+import Logger from './../../utils/logger'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -8,9 +9,7 @@ export default defineEventHandler(async (event) => {
     return isAuthenticated(tokenSet.data.tokenSet)
   }
   catch (error) {
-    console.log('FAS OID error')
-    console.log(error)
-    console.log('-------------')
+    Logger.error(error.stack)
     return false
   }
 })

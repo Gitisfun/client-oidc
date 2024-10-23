@@ -14,6 +14,7 @@ import type { Endpoints, OidcProvider, SessionConfig } from './runtime/types'
 // Module options TypeScript interface definition
 export interface ModuleOptions {
   isEnabled: boolean
+  isDev: boolean
   endpoints?: Endpoints
   config: OidcProvider
   sessionConfig?: SessionConfig
@@ -28,6 +29,7 @@ export default defineNuxtModule<ModuleOptions>({
   // Default configuration options of the Nuxt module
   defaults: {
     isEnabled: true,
+    isDev: false,
     endpoints: {
       baseUrl: '',
       login: '/login',

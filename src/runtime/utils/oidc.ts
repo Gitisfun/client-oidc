@@ -61,7 +61,7 @@ export class Oidc {
 
   async isAuthorized() {
     // TODO: implement authorized by roles
-    console.log('Implement')
+    console.log('Function not implemented yet...')
   }
 
   async isLoggedIn() {

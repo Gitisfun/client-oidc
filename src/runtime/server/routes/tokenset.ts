@@ -1,5 +1,6 @@
 import { defineEventHandler } from 'h3'
 import { getIdTokenSession } from './../../utils/session'
+import Logger from './../../utils/logger'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -7,9 +8,7 @@ export default defineEventHandler(async (event) => {
     return session.data
   }
   catch (error) {
-    console.log('FAS OID error')
-    console.log(error)
-    console.log('-------------')
+    Logger.error(error.stack)
     return null
   }
 })
