@@ -116,10 +116,6 @@ export default defineNuxtModule<ModuleOptions>({
       handler: resolver.resolve('./runtime/server/routes/authenticated'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}/test`,
-      handler: resolver.resolve('./runtime/server/routes/test'),
-    })
-    addServerHandler({
       route: `${_options.endpoints?.baseUrl}/error`,
       handler: resolver.resolve('./runtime/server/routes/error'),
     })
