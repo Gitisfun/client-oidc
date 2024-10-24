@@ -6,6 +6,7 @@ import {
   getIdTokenSession,
 } from './../../utils/session'
 import Logger from './../../utils/logger'
+import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   try {
