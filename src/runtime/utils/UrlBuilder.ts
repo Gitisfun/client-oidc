@@ -1,3 +1,5 @@
+import { useRuntimeConfig } from '#imports'
+
 export class UrlBuilder {
   private url: string
   private isFirst: boolean
@@ -21,4 +23,9 @@ export class UrlBuilder {
   toString(): string {
     return this.url
   }
+}
+
+export const constructEndpoint = (path) => {
+  const baseUrl = useRuntimeConfig().app.baseURL
+  return `${baseUrl}${path}`.replace(/\/{2,}/g, '/')
 }

@@ -1,5 +1,4 @@
 export type Endpoints = {
-  baseUrl?: string
   login?: string
   loginCallback?: string
   userinfo?: string

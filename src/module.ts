@@ -31,7 +31,6 @@ export default defineNuxtModule<ModuleOptions>({
     isEnabled: true,
     isDev: false,
     endpoints: {
-      baseUrl: '',
       login: '/login',
       loginCallback: '/loginCallback',
       accessToken: '/accesstoken',
@@ -89,39 +88,39 @@ export default defineNuxtModule<ModuleOptions>({
     )
 
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.login}`,
+      route: `${_options.endpoints?.login}`,
       handler: resolver.resolve('./runtime/server/routes/login'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.loginCallback}`,
+      route: `${_options.endpoints?.loginCallback}`,
       handler: resolver.resolve('./runtime/server/routes/loginCallback'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.logout}`,
+      route: `${_options.endpoints?.logout}`,
       handler: resolver.resolve('./runtime/server/routes/logout'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.logoutCallback}`,
+      route: `${_options.endpoints?.logoutCallback}`,
       handler: resolver.resolve('./runtime/server/routes/logoutCallback'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.accessToken}`,
+      route: `${_options.endpoints?.accessToken}`,
       handler: resolver.resolve('./runtime/server/routes/tokenset'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.userinfo}`,
+      route: `${_options.endpoints?.userinfo}`,
       handler: resolver.resolve('./runtime/server/routes/user'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.authenticated}`,
+      route: `${_options.endpoints?.authenticated}`,
       handler: resolver.resolve('./runtime/server/routes/authenticated'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.introspect}`,
+      route: `${_options.endpoints?.introspect}`,
       handler: resolver.resolve('./runtime/server/api/introspect'),
     })
     addServerHandler({
-      route: `${_options.endpoints?.baseUrl}/error`,
+      route: `/error`,
       handler: resolver.resolve('./runtime/server/routes/error'),
     })
 

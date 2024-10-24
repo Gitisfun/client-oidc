@@ -14,6 +14,6 @@ export default defineNuxtRouteMiddleware(async () => {
 
   if (!isLoggedIn) {
     const { endpoints } = useRuntimeConfig().public.clientOidc
-    return navigateTo(`${endpoints?.baseUrl}${endpoints?.login}`)
+    return navigateTo(`${endpoints?.login}`)
   }
 })

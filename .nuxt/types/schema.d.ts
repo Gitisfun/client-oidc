@@ -80,8 +80,6 @@ declare module 'nuxt/schema' {
       isEnabled: boolean,
 
       endpoints: {
-         baseUrl: string,
-
          login: string,
 
          loginCallback: string,

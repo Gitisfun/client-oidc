@@ -1,5 +1,5 @@
 import type { TokenSetParameters } from 'openid-client'
-import { UrlBuilder } from './UrlBuilder'
+import { UrlBuilder, constructEndpoint } from './UrlBuilder'
 import { useFetch } from '#app'
 import { useRuntimeConfig } from '#imports'
 
@@ -11,13 +11,13 @@ export class Oidc {
   private readonly ENDPOINT_AUTHENTICATED: string
 
   constructor() {
-    const { baseUrl, login, logout, userinfo, accessToken, authenticated } = useRuntimeConfig().public.clientOidc.endpoints
+    const { login, logout, userinfo, accessToken, authenticated } = useRuntimeConfig().public.clientOidc.endpoints
 
-    this.ENDPOINT_LOGIN = `${baseUrl}${login}`
-    this.ENDPOINT_LOGOUT = `${baseUrl}${logout}`
-    this.ENDPOINT_USERINFO = `${baseUrl}${userinfo}`
-    this.ENDPOINT_TOKEN = `${baseUrl}${accessToken}`
-    this.ENDPOINT_AUTHENTICATED = `${baseUrl}${authenticated}`
+    this.ENDPOINT_LOGIN = constructEndpoint(login)
+    this.ENDPOINT_LOGOUT = constructEndpoint(logout)
+    this.ENDPOINT_USERINFO = constructEndpoint(userinfo)
+    this.ENDPOINT_TOKEN = constructEndpoint(accessToken)
+    this.ENDPOINT_AUTHENTICATED = constructEndpoint(authenticated)
   }
 
   async login(locale?: string, postLoginRedirectUrl: string) {
