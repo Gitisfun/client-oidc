@@ -39,6 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
       logout: '/logout',
       logoutCallback: '/logoutCallback',
       authenticated: '/authenticated',
+      introspect: '/api/introspect',
     },
     config: {
       issuer: '',
@@ -114,6 +115,10 @@ export default defineNuxtModule<ModuleOptions>({
     addServerHandler({
       route: `${_options.endpoints?.baseUrl}${_options.endpoints?.authenticated}`,
       handler: resolver.resolve('./runtime/server/routes/authenticated'),
+    })
+    addServerHandler({
+      route: `${_options.endpoints?.baseUrl}${_options.endpoints?.introspect}`,
+      handler: resolver.resolve('./runtime/server/api/introspect'),
     })
     addServerHandler({
       route: `${_options.endpoints?.baseUrl}/error`,

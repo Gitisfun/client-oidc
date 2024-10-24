@@ -27,6 +27,9 @@ declare module 'nitropack' {
     '/authenticated': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../src/runtime/server/routes/authenticated').default>>>>
     }
+    '/api/introspect': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../src/runtime/server/api/introspect').default>>>>
+    }
     '/error': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../src/runtime/server/routes/error').default>>>>
     }

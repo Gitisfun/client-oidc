@@ -1,4 +1,5 @@
 import { Oidc } from './../utils/oidc'
+import Logger from './../utils/logger'
 import {
   defineNuxtRouteMiddleware,
   useRuntimeConfig,
@@ -7,9 +8,11 @@ import {
 
 export default defineNuxtRouteMiddleware(async () => {
   const oidc = new Oidc()
-  const token = await oidc.getTokenSet()
+  const isLoggedIn = await oidc.isLoggedIn()
 
-  if (!token.value?.id_token) {
+  Logger.info(`Authenticated middleware: User authentication status - ${isLoggedIn ? 'Authenticated' : 'Not Authenticated'}.`)
+
+  if (!isLoggedIn) {
     const { endpoints } = useRuntimeConfig().public.clientOidc
     return navigateTo(`${endpoints?.baseUrl}${endpoints?.login}`)
   }

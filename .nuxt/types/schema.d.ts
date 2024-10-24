@@ -95,6 +95,8 @@ declare module 'nuxt/schema' {
          logoutCallback: string,
 
          authenticated: string,
+
+         introspect: string,
       },
    },
   }

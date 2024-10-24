@@ -7,6 +7,7 @@ export type Endpoints = {
   logout?: string
   logoutCallback?: string
   authenticated?: string
+  introspect?: string
 }
 
 export type OidcProvider = {
