@@ -17,8 +17,8 @@ Find and replace all on all files (CMD+SHIFT+F):
 A basic implementation for an oidc client for Nuxt 3.
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
+  <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
+  <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Quick Setup
 
@@ -58,6 +58,66 @@ export default defineNuxtConfig({
 
 There are different options possible in the config. Some are mandatory and others are optional. Here follows a list of all options:
 
+# Config with .env file
+
+```ini
+# Public config (for client-side access)
+NUXT_PUBLIC_CLIENT_OIDC_IS_ENABLED=
+NUXT_PUBLIC_CLIENT_OIDC_ENDPOINTS_BASE_URL=
+NUXT_PUBLIC_CLIENT_OIDC_ENDPOINTS_LOGIN=
+NUXT_PUBLIC_CLIENT_OIDC_ENDPOINTS_LOGIN_CALLBACK=
+NUXT_PUBLIC_CLIENT_OIDC_ENDPOINTS_ACCESS_TOKEN=
+NUXT_PUBLIC_CLIENT_OIDC_ENDPOINTS_USERINFO=
+NUXT_PUBLIC_CLIENT_OIDC_ENDPOINTS_LOGOUT=
+NUXT_PUBLIC_CLIENT_OIDC_ENDPOINTS_LOGOUT_CALLBACK=
+
+# Private config (for server-side only)
+NUXT_CLIENT_OIDC_CONFIG_ISSUER=
+NUXT_CLIENT_OIDC_CONFIG_CLIENT_ID=
+NUXT_CLIENT_OIDC_CONFIG_REDIRECT_URL=
+NUXT_CLIENT_OIDC_CONFIG_ACR_VALUES=
+NUXT_CLIENT_OIDC_CONFIG_POST_LOGOUT_REDIRECT_URIS=
+NUXT_CLIENT_OIDC_CONFIG_CLIENT_SECRET=
+NUXT_CLIENT_OIDC_CONFIG_SCOPE=
+NUXT_CLIENT_OIDC_CONFIG_ALLOWED_ROLES=
+```
+
+```javascript
+export default defineNuxtConfig({
+  ...
+  runtimeConfig: {
+      public: {
+        clientOidc: {
+          isEnabled: '',
+          endpoints: {
+            baseUrl: '',
+            login: '',
+            loginCallback: '',
+            accessToken: '',
+            userinfo: '',
+            logout: '',
+            logoutCallback: '',
+          },
+        },
+      },
+      clientOidc: {
+        config: {
+          issuer: '',
+          clientId: '',
+          redirectUrl: '',
+          acrValues: '',
+          postLogoutRedirectUris: '',
+          clientSecret: '',
+          scope: '',
+          allowedRoles: '',
+        },
+      },
+    },
+});
+```
+
+# Config without using environment variables
+
 ```javascript
 export default defineNuxtConfig({
   ...
@@ -90,14 +150,6 @@ export default defineNuxtConfig({
       userinfo: '', // Type: String
       logout: '', // Type: String
       logoutCallback: '', // * Type: String
-    },
-    sessionConfig: {
-      name: '',
-      password: '',
-      httpOnly: '',
-      secure: '',
-      sameSite: '',
-      maxAge: '',
     },
   },
   ...
@@ -135,16 +187,13 @@ export default defineNuxtConfig({
 
 </details>
 
-
 <!-- Badges -->
+
 [npm-version-src]: https://www.npmjs.com/package/client-oidc
 [npm-version-href]: https://www.npmjs.com/package/client-oidc
-
 [npm-downloads-src]: https://www.npmjs.com/package/client-oidc
 [npm-downloads-href]: https://www.npmjs.com/package/client-oidc
-
 [license-src]: https://www.npmjs.com/package/client-oidc
 [license-href]: https://www.npmjs.com/package/client-oidc
-
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
 [nuxt-href]: https://nuxt.com

@@ -8,8 +8,13 @@ import {
   addRouteMiddleware,
 } from '@nuxt/kit'
 import { defu } from 'defu'
-import { SESSION_MAX_AGE_ONE_HOUR } from './runtime/utils/constants'
-import type { Endpoints, OidcProvider, SessionConfig } from './runtime/types'
+import type { H3Event } from 'h3'
+import {
+  getUserInfoSession,
+  getIdTokenSession,
+  getTokenSetSession,
+} from './runtime/utils/session'
+import type { Endpoints, OidcProvider } from './runtime/types'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -17,7 +22,6 @@ export interface ModuleOptions {
   isDev: boolean
   endpoints?: Endpoints
   config: OidcProvider
-  sessionConfig?: SessionConfig
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -59,14 +63,6 @@ export default defineNuxtModule<ModuleOptions>({
       introspectionUri: '/introspect',
       endSessionUri: '/connect/endSession',
     },
-    sessionConfig: {
-      name: 'clientoidcsession',
-      password: '80d42cfb-1cd2-462c-8f17-e3237d9027e9',
-      httpOnly: true,
-      secure: true,
-      sameSite: true,
-      maxAge: SESSION_MAX_AGE_ONE_HOUR,
-    },
   },
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
@@ -75,7 +71,6 @@ export default defineNuxtModule<ModuleOptions>({
       _nuxt.options.runtimeConfig.clientOidc,
       {
         config: _options.config,
-        sessionConfig: _options.sessionConfig,
       },
     )
 
@@ -134,6 +129,20 @@ export default defineNuxtModule<ModuleOptions>({
     _nuxt.options.build.transpile.push(runtimeDir)
 
     addPlugin(resolve(runtimeDir, 'plugin'))
-    // addPlugin(resolver.resolve('./runtime/plugin'))
   },
 })
+
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+export class ClientOidcSession {
+  static async getUser(event: H3Event) {
+    return await getUserInfoSession(event)
+  }
+
+  static async getTokenSet(event: H3Event) {
+    return await getTokenSetSession(event)
+  }
+
+  static async getIdToken(event: H3Event) {
+    return await getIdTokenSession(event)
+  }
+}

@@ -29,15 +29,6 @@ export type OidcProvider = {
   endSessionUri?: string
 }
 
-export type SessionConfig = {
-  name?: string
-  password?: string
-  httpOnly?: boolean
-  secure?: boolean
-  sameSite?: boolean
-  maxAge?: number
-}
-
 export interface OIDCUser {
   /** National Registry Number */
   nrn?: string
