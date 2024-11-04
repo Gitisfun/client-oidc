@@ -8,12 +8,6 @@ import {
   addRouteMiddleware,
 } from '@nuxt/kit'
 import { defu } from 'defu'
-import type { H3Event } from 'h3'
-import {
-  getUserInfoSession,
-  getIdTokenSession,
-  getTokenSetSession,
-} from './runtime/utils/session'
 import type { Endpoints, OidcProvider } from './runtime/types'
 
 // Module options TypeScript interface definition
@@ -131,18 +125,3 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolve(runtimeDir, 'plugin'))
   },
 })
-
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class ClientOidcSession {
-  static async getUser(event: H3Event) {
-    return await getUserInfoSession(event)
-  }
-
-  static async getTokenSet(event: H3Event) {
-    return await getTokenSetSession(event)
-  }
-
-  static async getIdToken(event: H3Event) {
-    return await getIdTokenSession(event)
-  }
-}
