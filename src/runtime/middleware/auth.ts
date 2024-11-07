@@ -6,7 +6,7 @@ import {
   navigateTo,
 } from '#imports'
 
-export default defineNuxtRouteMiddleware(async () => {
+export default defineNuxtRouteMiddleware(async (event) => {
   const oidc = new Oidc()
   const isLoggedIn = await oidc.isLoggedIn()
 
@@ -14,6 +14,6 @@ export default defineNuxtRouteMiddleware(async () => {
 
   if (!isLoggedIn) {
     const { endpoints } = useRuntimeConfig().public.clientOidc
-    return navigateTo(`${endpoints?.login}`)
+    return await navigateTo(`${endpoints?.login}?postLoginUrl=${event?.fullPath}`)
   }
 })
