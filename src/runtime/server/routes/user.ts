@@ -1,5 +1,4 @@
 import { defineEventHandler } from 'h3'
-import { getUserInfoSession } from './../../utils/session'
 import Logger from './../../utils/logger'
 
 export default defineEventHandler(async (event) => {

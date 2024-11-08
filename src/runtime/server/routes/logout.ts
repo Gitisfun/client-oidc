@@ -1,10 +1,5 @@
 import { defineEventHandler, sendRedirect, getQuery } from 'h3'
 import { isAuthenticated } from './../../utils/index'
-import {
-  getLoginSession,
-  getTokenSetSession,
-  getIdTokenSession,
-} from './../../utils/session'
 import { initClient } from './../../utils/client'
 import Logger from './../../utils/logger'
 import { useRuntimeConfig } from '#imports'
