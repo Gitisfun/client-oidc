@@ -42,3 +42,8 @@ export interface OIDCUser {
   mail?: string
   roles?: string
 }
+
+export type Session = {
+  password?: string
+  maxAge?: number
+}

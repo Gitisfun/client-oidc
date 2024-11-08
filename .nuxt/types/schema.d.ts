@@ -24,6 +24,8 @@ declare module 'nuxt/schema' {
    },
 
    clientOidc: {
+      appName: string,
+
       config: {
          issuer: string,
 
@@ -60,16 +62,8 @@ declare module 'nuxt/schema' {
          endSessionUri: string,
       },
 
-      sessionConfig: {
-         name: string,
-
+      session: {
          password: string,
-
-         httpOnly: boolean,
-
-         secure: boolean,
-
-         sameSite: boolean,
 
          maxAge: number,
       },
@@ -78,6 +72,8 @@ declare module 'nuxt/schema' {
   interface PublicRuntimeConfig {
    clientOidc: {
       isEnabled: boolean,
+
+      isDev: boolean,
 
       endpoints: {
          login: string,

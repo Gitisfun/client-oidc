@@ -1,5 +1,5 @@
 import { useSession } from 'h3'
-import { SESSION_MAX_AGE_ONE_HOUR } from './constants'
+import { useRuntimeConfig } from '#imports'
 
 const SESSION_LOGIN = 'client-oidc-userinfo-session'
 const SESSION_USERINFO = 'client-oidc-userinfo-session'
@@ -7,14 +7,21 @@ const SESSION_TOKENSET = 'client-oidc-tokenset-session'
 const SESSION_IDTOKEN = 'client-oidc-idtoken-session'
 
 const getGenericSession = async (sessionName, event) => {
+  const appName = useRuntimeConfig().clientOidc.appName
+  const { session } = useRuntimeConfig().clientOidc
+
+  const name = `${appName}-${sessionName}`
+  const password = session.password
+  const maxAge = session.maxAge
+
   return await useSession(event, {
-    name: sessionName,
-    password: '80d42cfb-1cd2-462c-8f17-e3237d9027e9',
+    name,
+    password,
     cookie: {
       httpOnly: true,
       secure: true,
     },
-    maxAge: SESSION_MAX_AGE_ONE_HOUR,
+    maxAge,
   })
 }
 

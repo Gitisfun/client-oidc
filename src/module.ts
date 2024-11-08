@@ -6,16 +6,20 @@ import {
   createResolver,
   addServerHandler,
   addRouteMiddleware,
+  addServerImportsDir,
 } from '@nuxt/kit'
 import { defu } from 'defu'
-import type { Endpoints, OidcProvider } from './runtime/types'
+import { SESSION_MAX_AGE_ONE_HOUR } from './runtime/utils/constants'
+import type { Endpoints, OidcProvider, Session } from './runtime/types'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
+  appName: string
   isEnabled: boolean
   isDev: boolean
   endpoints?: Endpoints
   config: OidcProvider
+  session: Session
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -26,6 +30,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
+    appName: 'nuxt-app',
     isEnabled: true,
     isDev: false,
     endpoints: {
@@ -57,6 +62,10 @@ export default defineNuxtModule<ModuleOptions>({
       introspectionUri: '/introspect',
       endSessionUri: '/connect/endSession',
     },
+    session: {
+      password: '80d42cfb-1cd2-462c-8f17-e3237d9027e9',
+      maxAge: SESSION_MAX_AGE_ONE_HOUR,
+    },
   },
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
@@ -64,7 +73,9 @@ export default defineNuxtModule<ModuleOptions>({
     _nuxt.options.runtimeConfig.clientOidc = defu(
       _nuxt.options.runtimeConfig.clientOidc,
       {
+        appName: _options.appName,
         config: _options.config,
+        session: _options.session,
       },
     )
 
@@ -72,6 +83,7 @@ export default defineNuxtModule<ModuleOptions>({
       _nuxt.options.runtimeConfig.public.clientOidc,
       {
         isEnabled: _options.isEnabled,
+        isDev: _options.isDev,
         endpoints: _options.endpoints,
       },
     )
@@ -118,6 +130,8 @@ export default defineNuxtModule<ModuleOptions>({
       path: resolver.resolve('./runtime/middleware/auth'),
       global: false,
     })
+
+    addServerImportsDir(resolver.resolve('./runtime/server/utils'))
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     _nuxt.options.build.transpile.push(runtimeDir)
