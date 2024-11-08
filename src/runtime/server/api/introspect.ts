@@ -1,4 +1,5 @@
 import { defineEventHandler } from 'h3'
+import { getTokenSetSession } from './../utils/session'
 import { initClient } from './../../utils/client'
 import Logger from './../../utils/logger'
 
