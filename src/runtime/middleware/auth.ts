@@ -2,7 +2,6 @@ import { Oidc } from './../utils/oidc'
 import Logger from './../utils/logger'
 import {
   defineNuxtRouteMiddleware,
-  useRuntimeConfig,
   navigateTo,
 } from '#imports'
 
@@ -13,7 +12,8 @@ export default defineNuxtRouteMiddleware(async (event) => {
   Logger.info(`Authenticated middleware: User authentication status - ${isLoggedIn ? 'Authenticated' : 'Not Authenticated'}.`)
 
   if (!isLoggedIn) {
-    const { endpoints } = useRuntimeConfig().public.clientOidc
-    return await navigateTo(`${endpoints?.login}?postLoginUrl=${event?.fullPath}`)
+    const url = `/authenticated-page?postLoginUrl=${event?.fullPath}`
+    Logger.info(`Navigating to ${event?.fullPath} after login.`)
+    return await navigateTo(url)
   }
 })

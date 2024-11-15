@@ -1,2 +1,1 @@
-export { useRoute } from '#app/composables/router'
-export const START_LOCATION = Symbol('router:start-location')
+export { START_LOCATION, useRoute } from 'vue-router'

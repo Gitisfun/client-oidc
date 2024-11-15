@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     port: 8080,
   },
   app: {
-    baseURL: '/iaf/hil/5/',
+    baseURL: '/oots-sdg/evidence-picker/',
   },
   myModule: {},
   devtools: { enabled: true },

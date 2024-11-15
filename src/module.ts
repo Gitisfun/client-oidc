@@ -7,6 +7,7 @@ import {
   addServerHandler,
   addRouteMiddleware,
   addServerImportsDir,
+  extendPages,
 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { SESSION_MAX_AGE_ONE_HOUR } from './runtime/utils/constants'
@@ -129,6 +130,14 @@ export default defineNuxtModule<ModuleOptions>({
       name: 'client-oidc-auth-middleware',
       path: resolver.resolve('./runtime/middleware/auth'),
       global: false,
+    })
+
+    extendPages((pages) => {
+      pages.unshift({
+        name: 'authenticatedPage',
+        path: '/authenticated-page',
+        file: resolver.resolve('runtime/pages/authenticatedPage.vue'),
+      })
     })
 
     addServerImportsDir(resolver.resolve('./runtime/server/utils'))
