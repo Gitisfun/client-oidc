@@ -1,8 +1,14 @@
 import { defineEventHandler, sendRedirect } from 'h3'
-import { getLoginSession, getTokenSetSession, getUserInfoSession, getIdTokenSession } from './../utils/session'
+import {
+  getLoginSession,
+  getTokenSetSession,
+  getUserInfoSession,
+  getIdTokenSession,
+} from './../utils/session'
 import { initClient } from './../../utils/client'
 import Logger from './../../utils/logger'
 import type { OIDCUser } from './../../types'
+import { TokenValidator } from './../../utils/token'
 import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
@@ -77,6 +83,24 @@ export default defineEventHandler(async (event) => {
     await idTokenSession.update({
       id_token: tokenSet?.id_token,
     })
+
+    if (!config?.isTokenValidationSkipped) {
+      const tokenValidator = new TokenValidator(event)
+      const isTokenValidated = await tokenValidator.validate()
+
+      if (isTokenValidated) Logger.success(`JWT token has been validated`)
+
+      if (!isTokenValidated) {
+        await loginSession.clear()
+        await userInfoSession.clear()
+        await tokenSetSession.clear()
+        await idTokenSession.clear()
+        throw new Error('Failed to validate the token')
+      }
+    }
+    else {
+      Logger.warning(`Skipped validation of jwt token`)
+    }
 
     // TODO: Check if user has tokenSetowed role 3-> hasAllowedRole
 

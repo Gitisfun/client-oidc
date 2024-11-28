@@ -27,6 +27,7 @@ export type OidcProvider = {
   introspectionUri?: string
   jwkUri?: string
   endSessionUri?: string
+  isTokenValidationSkipped?: boolean
 }
 
 export interface OIDCUser {
