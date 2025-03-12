@@ -1,6 +1,6 @@
 {
   "name": "client-oidc",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "An implementation for OIDC",
   "license": "MIT",
   "type": "module",
