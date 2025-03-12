@@ -11,7 +11,12 @@ import {
 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { SESSION_MAX_AGE_ONE_HOUR } from './runtime/utils/constants'
-import type { Endpoints, OidcProvider, Session } from './runtime/types'
+import type {
+  Endpoints,
+  OidcProvider,
+  Session,
+  JwtConfig,
+} from './runtime/types'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -21,6 +26,7 @@ export interface ModuleOptions {
   endpoints?: Endpoints
   config: OidcProvider
   session: Session
+  jwt?: JwtConfig
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -68,6 +74,10 @@ export default defineNuxtModule<ModuleOptions>({
       password: '80d42cfb-1cd2-462c-8f17-e3237d9027e9',
       maxAge: SESSION_MAX_AGE_ONE_HOUR,
     },
+    jwt: {
+      clientSecret: '',
+      providerUrl: '',
+    },
   },
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
@@ -78,7 +88,7 @@ export default defineNuxtModule<ModuleOptions>({
         appName: _options.appName,
         config: _options.config,
         session: _options.session,
-      },
+      }
     )
 
     _nuxt.options.runtimeConfig.public.clientOidc = defu(
@@ -87,7 +97,7 @@ export default defineNuxtModule<ModuleOptions>({
         isEnabled: _options.isEnabled,
         isDev: _options.isDev,
         endpoints: _options.endpoints,
-      },
+      }
     )
 
     addServerHandler({
@@ -143,7 +153,10 @@ export default defineNuxtModule<ModuleOptions>({
 
     addServerImportsDir(resolver.resolve('./runtime/server/utils'))
 
-    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    const runtimeDir = fileURLToPath(
+      new URL('./runtime', import.meta.url)
+    ).replace(/\\/g, '/')
+
     _nuxt.options.build.transpile.push(runtimeDir)
 
     addPlugin(resolve(runtimeDir, 'plugin'))

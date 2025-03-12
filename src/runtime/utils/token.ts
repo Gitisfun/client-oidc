@@ -2,6 +2,7 @@ import { promisify } from 'node:util'
 import jwt from 'jsonwebtoken'
 import { getIdTokenSession, getLoginSession } from './../server/utils/session'
 import Logger from './logger'
+import { useRuntimeConfig } from '#imports'
 
 const verifyJWT = promisify(jwt.verify)
 

@@ -48,3 +48,8 @@ export type Session = {
   password?: string
   maxAge?: number
 }
+
+export type JwtConfig = {
+  clientSecret?: string
+  providerUrl?: string
+}
